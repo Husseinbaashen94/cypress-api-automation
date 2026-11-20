@@ -40,17 +40,58 @@ cypress/
     └── commands.js           # shouldMatchSchema, adminToken, seedBooking
 ```
 
-## Run it
+## Getting started
 
-Requires Node.js 18+.
+### 1. Prerequisites
+
+| Tool | Version | Check | Install |
+|------|---------|-------|---------|
+| Node.js | 20.12 or newer (22 LTS recommended) | `node -v` | [nodejs.org](https://nodejs.org/) |
+| Git | any recent | `git --version` | [git-scm.com](https://git-scm.com/downloads) |
+
+### 2. Clone and install
 
 ```bash
-npm install
-npm test           # headless run
-npm run cy:open    # interactive runner
+git clone https://github.com/Husseinbaashen94/cypress-api-automation.git
+cd cypress-api-automation
+npm install          # installs Cypress, Ajv (schema validation) and Faker
 ```
 
-The HTML report is written to `cypress/reports/index.html`.
+### 3. Configure (optional)
+
+Everything works out of the box. To change a setting, copy the template and fill in only what you need:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Purpose and default |
+|----------|---------------------|
+| `BASE_URL` | API under test. Default `https://restful-booker.herokuapp.com` |
+| `ADMIN_USER` | Login used for `/auth`. Default: Restful-Booker's public demo user |
+| `ADMIN_PASSWORD` | Password for that login. Default: the public demo password |
+
+Empty values use the default. `.env` is git-ignored, so nothing you put in it is ever committed.
+
+### 4. Run the tests
+
+```bash
+npm test                 # all API specs, headless
+npx cypress run --spec cypress/e2e/booking-crud.cy.js   # one spec file
+npm run cy:open          # interactive runner: inspect every request and response
+```
+
+### 5. View the report
+
+Open `cypress/reports/index.html` in a browser.
+
+### Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| `Cypress binary is missing` | Run `npx cypress install` |
+| Many tests fail with `503` / timeouts | The public demo API sleeps when idle; run again after a minute |
+| Search tests fail intermittently | Someone else may be loading the shared demo; re-run |
 
 ## CI
 
