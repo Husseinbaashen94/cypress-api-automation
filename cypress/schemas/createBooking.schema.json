@@ -1,0 +1,9 @@
+{
+  "$id": "createBooking",
+  "type": "object",
+  "required": ["bookingid", "booking"],
+  "properties": {
+    "bookingid": { "type": "integer", "minimum": 1 },
+    "booking": { "$ref": "booking" }
+  }
+}
